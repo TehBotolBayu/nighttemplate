@@ -112,11 +112,28 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+@theme {
+  --font-sans: var(--font-geist-sanlis);
+  --font-mono: var(--font-geist-mono);
+  --color-primary: #007342;
+  --color-secondary: #2BFFF8;
+  --color-black: #020403;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+  }
+  .heroTitle {
+    @apply text-[72px] font-semibold text-white;
+  }
+  .maxWidth {
+    @apply max-w-7xl mx-auto;
+  }
+  .roundBorder {
+    @apply rounded-lg;
   }
 }
