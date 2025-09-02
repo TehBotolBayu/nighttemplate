@@ -128,7 +128,8 @@
     @apply bg-background text-foreground;
   }
   .heroTitle {
-    @apply text-[72px] font-semibold text-white;
+    font-size: clamp(2.25rem, 4.5vw + 0.5rem, 5rem);
+    @apply font-semibold text-white;
   }
   .maxWidth {
     @apply max-w-7xl mx-auto;
@@ -136,4 +137,104 @@
   .roundBorder {
     @apply rounded-lg;
   }
+}
+
+@layer components {
+  /* Modern hover for feature cards: lift, glow, and passing shine */
+  .feature-card, .glass-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 350ms ease, border-color 300ms ease;
+    will-change: transform, box-shadow;
+    backdrop-filter: saturate(140%);
+  }
+  .feature-card:hover, .glass-card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.35),
+      0 0 36px rgba(0, 115, 66, 0.22);
+  }
+  .feature-card::before, .glass-card::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background:
+      radial-gradient(160px 120px at 15% 0%, rgba(43, 255, 248, 0.18), transparent 60%),
+      radial-gradient(200px 160px at 85% 100%, rgba(0, 115, 66, 0.22), transparent 65%);
+    opacity: 0.25;
+    filter: blur(10px);
+    transition: opacity 400ms ease;
+  }
+  .feature-card:hover::before, .glass-card:hover::before {
+    opacity: 0.55;
+  }
+  .feature-card::after, .glass-card::after {
+    content: "";
+    position: absolute;
+    top: -40%;
+    left: -130%;
+    width: 40%;
+    height: 180%;
+    transform: rotate(20deg);
+    background: linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.18) 45%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+  .feature-card:hover::after, .glass-card:hover::after {
+    animation: feature-shine 1000ms ease-out forwards;
+  }
+
+  /* How It Works hover bubble with cursor-follow highlight */
+  .hover-bubble {
+    position: relative;
+    isolation: isolate;
+  }
+  .hover-bubble::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(120px 120px at var(--mx, 50%) var(--my, 50%), rgba(43,255,248,0.18), transparent 60%);
+    opacity: 0;
+    transition: opacity 250ms ease;
+  }
+  .hover-bubble:hover::before { opacity: 1; }
+
+  /* How It Works connector line + moving light */
+  .hiw-connector {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  }
+  .hiw-runner {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    height: 3px;
+    width: 14%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, rgba(43,255,248,0.7), rgba(0,115,66,0.7), transparent);
+    filter: blur(1px);
+    animation: hiw-move 4s linear infinite;
+  }
+}
+
+@keyframes feature-shine {
+  to {
+    left: 130%;
+  }
+}
+
+@keyframes hiw-move {
+  0% { transform: translateX(-10%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateX(110%); opacity: 0; }
 }

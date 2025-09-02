@@ -20,12 +20,14 @@ import Image from "next/image"
 
 const HeaderSection = () => {
   return (
-    <NavigationMenu className="fixed top-8 left-0 right-0 z-50 p-1  maxWidth  items-center justify-between w-screen" viewport={false}>
+    <NavigationMenu className="fixed top-8 left-0 right-0 z-50 p-1 maxWidth items-center justify-between w-screen"
+      viewport={false}
+    >
       <div className="flex items-center gap-2">
         <Image src="/logo.png" alt="logo" width={32} height={32} />
         <p className="text-white text-lg font-regular">Astrabit</p>
       </div>
-      <NavigationMenuList className="gap-4 roundBorder bg-primary p-1">
+      <NavigationMenuList className="gap-1">
         <NavigationMenuItem>
           <NavigationMenuTrigger>Home</NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -157,7 +159,10 @@ const HeaderSection = () => {
           </NavigationMenuContent>
         </NavigationMenuItem>
       </NavigationMenuList>
-      <Button>
+      <Button
+        variant="outline"
+        className="rounded-full border-white/15 bg-white/10 text-white hover:bg-white/15"
+      >
         Login / Register
       </Button>
     </NavigationMenu>
